@@ -140,7 +140,28 @@ def evaluate_model(model, test_loader, criterion, show_loss = True):
     RETURNS:
         None
     """
+    model.eval()
+    correct = 0
+    total = 0
+    test_loss = 0.0
 
+    with torch.no_grad():
+        for data, labels in test_loader:
+            outputs = model(data)
+            loss = criterion(outputs, labels)
+            test_loss += loss.item()
+
+            _, predicted = torch.max(outputs, 1)
+            correct += (predicted == labels).sum().item()
+            total += labels.size(0)
+
+    avg_loss = test_loss / len(test_loader)
+
+    accuracy = 100 * correct / total
+
+    if show_loss:
+        print(f"Average loss: {avg_loss:.4f}")
+    print(f"Accuracy: {accuracy:.2f}%")
     
 
 
