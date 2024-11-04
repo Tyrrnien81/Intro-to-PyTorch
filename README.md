@@ -122,7 +122,7 @@ The main script (`intro_pytorch.py`) contains the following functions:
 
 ## Dataset Information
 
-The **FashionMNIST** dataset is a collection of grayscale images, each of size 28x28 pixels, representing 10 categories of clothing items:
+The **Fashion-MNIST** dataset is a collection of grayscale images, each of size 28x28 pixels, representing 10 categories of clothing items:
 
 -   T-shirt/top
 -   Trouser
