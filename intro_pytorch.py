@@ -187,6 +187,24 @@ def predict_label(model, test_images, index):
     RETURNS:
         None
     """
+    # Set the model to evaluation mode
+    model.eval()
+
+    # Disable gradient calculation for inference
+    with torch.no_grad():
+        # Get logits for all test images
+        logits = model(test_images)
+        # Calculate probabilities for the given index image using softmax
+        prob = F.softmax(logits[index], dim=0)
+        # Get top 3 probabilities and their class indices
+        top3_prob, top3_indices = torch.topk(prob, 3)
+
+        class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Boot']
+        
+        # Loop through the top 3 predictions
+        for i in range(3):
+            print(f"{class_names[top3_indices[i].item()]}: {top3_prob[i].item() * 100:.2f}%")
+
 
 
 if __name__ == '__main__':
@@ -206,16 +224,21 @@ if __name__ == '__main__':
     test_loader = get_data_loader(False)
 
     # Test build_model()
-    print("Test build_model()")
+    print("\nTest build_model()")
     model = build_model()
     print(model)
 
     # Test train_model()
-    print("Test train_model()")
+    print("\nTest train_model()")
     train_loader = get_data_loader(training=True)
     train_model(model, train_loader, criterion, 5)
 
     # Test evaluate_model()
-    print("Test evaluate_model()")
+    print("\nTest evaluate_model()")
     test_loader = get_data_loader(training=False)
     evaluate_model(model, test_loader, criterion, show_loss=True)
+
+    # Test predict_label()
+    print("\nTest predict_label()")
+    test_images = next(iter(test_loader))[0]
+    predict_label(model, test_images, 1)
