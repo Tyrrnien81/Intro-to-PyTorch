@@ -16,7 +16,18 @@ def get_data_loader(training = True):
     RETURNS:
         Dataloader for the training set (if training = True) or the test set (if training = False)
     """
+    # Define a transform to normalize the data
+    transform=transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,))
+    ])
+    
+    # Download and load the training data
+    dataset = datasets.FashionMNIST('./data', train=training, download=True, transform=transform)
+    # Create a dataloader
+    loader = torch.utils.data.DataLoader(dataset, batch_size=64)
 
+    return loader
 
 
 
