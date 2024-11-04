@@ -82,7 +82,49 @@ def train_model(model, train_loader, criterion, T):
     RETURNS:
         None
     """
- 
+    # Optimizer updates the weights of the model
+    # SGD (Stochastic Gradient Descent)
+    # lr: learning rate that controls the step size
+    # momentum: a parameter that reflects a percentage of previous weight updates
+    # to speed up optimization and reduce oscillation
+    opt = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+
+    # Set the model to training mode
+    model.train()
+
+    # Loop over the dataset T Epoch times
+    for epoch in range(T):
+        correct = 0
+        total = 0
+        running_loss = 0.0
+
+        # Loop over for each batch
+        for images, labels in train_loader:
+            # Reset the gradients to zero
+            opt.zero_grad()
+            # Forward pass
+            outputs = model(images)
+            # Compute the loss
+            loss = criterion(outputs, labels)
+            # Backward pass (compute the gradients)
+            loss.backward()
+            # Update the weights
+            opt.step()
+
+            # Compute the accuracy
+            # Predict the class with the highest probability
+            _, predicted = torch.max(outputs, 1)
+            # Compute the number of correct predictions
+            correct += (predicted == labels).sum().item()
+            # Update the total number of data
+            total += labels.size(0)
+            # Update the loss
+            running_loss += loss.item()
+
+        # Compute the average loss and accuracy
+        accuracy = 100 * correct / total
+        avg_loss = running_loss / len(train_loader)
+        print(f"Train Epoch: {epoch}  Accuracy: {correct}/{total}({accuracy:.2f}%)  Loss: {avg_loss:.3f}")
 
 
 
