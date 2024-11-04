@@ -1,5 +1,4 @@
-````markdown
-# Neural Network Project - PyTorch Implementation
+# Neural Network Project - Intro to PyTorch
 
 This project is a Python implementation of a neural network using PyTorch, designed to train, evaluate, and make predictions on the Fashion-MNIST dataset. This README provides a detailed overview of the project, including installation steps, descriptions of each function, and instructions on how to run the project.
 
@@ -17,7 +16,7 @@ This project is a Python implementation of a neural network using PyTorch, desig
 
 ## Introduction
 
-This project demonstrates how to build and train a simple neural network using PyTorch to classify images from the FashionMNIST dataset. The goal is to help beginners understand the steps involved in building, training, evaluating, and making predictions using a neural network in PyTorch. The FashionMNIST dataset consists of 28x28 grayscale images of 10 different categories of clothing items, such as T-shirts, trousers, and coats.
+This project demonstrates how to build and train a simple neural network using PyTorch to classify images from the Fashion-MNIST dataset. The goal is to help beginners understand the steps involved in building, training, evaluating, and making predictions using a neural network in PyTorch. The Fashion-MNIST dataset consists of 28x28 grayscale images of 10 different categories of clothing items, such as T-shirts, trousers, and coats.
 
 ## Project Structure
 
@@ -29,18 +28,23 @@ This project demonstrates how to build and train a simple neural network using P
 
 To run this project locally, follow the instructions below:
 
+### Prerequisites
+
+-   **Python** (v3.10.12 or >= v3.8)
+
 1. **Clone the repository**:
+
     ```sh
     git clone https://github.com/Tyrrnien81/Intro-to-PyTorch
     cd <repository-folder>
     ```
-````
 
 2. **Create a virtual environment**:
 
     ```sh
     python3 -m venv Pytorch
-    source Pytorch/bin/activate  # On Windows use `venv\Scripts\activate`
+    source Pytorch/bin/activate  # For Mac and Linux
+    Pytorch/Scripts/activate  # For Windows
     ```
 
 3. **Install the dependencies**:
@@ -73,7 +77,7 @@ You can modify the `__main__` section at the bottom of `intro_pytorch.py` to tes
 
 The main script (`intro_pytorch.py`) contains the following functions:
 
-1. **`get_data_loader(training=True)`**: Loads the FashionMNIST dataset and returns a data loader for either training or testing, depending on the argument.
+1. **`get_data_loader(training=True)`**: Loads the Fashion-MNIST dataset and returns a data loader for either training or testing, depending on the argument.
 
     - **Parameters**: `training` (bool) - whether to load the training set.
     - **Returns**: DataLoader for the specified dataset.
