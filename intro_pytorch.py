@@ -41,7 +41,31 @@ def build_model():
     RETURNS:
         An untrained neural network model
     """
+    model = nn.Sequential (
+        # Convert 2D image to 1D vector, because fully connected layers 
+        # (dense layers) expect 1D vector
+        nn.Flatten(),
 
+        # Input: 28 * 28 image, Output: 128 Neurons
+        # Linear Layer roles that the input is connected to the next layer
+        # as fully connected layer (dense layer)
+        nn.Linear(28 * 28, 128),
+
+        # Activation Function (Rectified Linear Unit)
+        # ReLU is a non-linear activation function that allows 
+        # the model to learn complex patterns in the data
+        nn.ReLU(),
+
+        # Input: 128 Neurons, Output: 64 Neurons
+        nn.Linear(128, 64),
+
+        # Activation Function (ReLU)
+        nn.ReLU(),
+
+        # Input: 64 Neurons, Output: 10 Classes (Class number of FashionMNIST)
+        nn.Linear(64, 10)
+    )
+    return model
 
 
 
