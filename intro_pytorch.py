@@ -188,3 +188,17 @@ if __name__ == '__main__':
     # Loss function measures the difference between 
     # what the neural network predicts and the actual correct answer
     criterion = nn.CrossEntropyLoss()
+
+    # Test get_data_loader()
+    train_loader = get_data_loader()
+    print(type(train_loader))
+    print(train_loader.dataset)
+    test_loader = get_data_loader(False)
+
+    # Test build_model()
+    model = build_model()
+    print(model)
+
+    # Test train_model()
+    train_loader = get_data_loader(training=True)
+    train_model(model, train_loader, criterion, 5)
