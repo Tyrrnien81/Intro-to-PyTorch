@@ -140,23 +140,32 @@ def evaluate_model(model, test_loader, criterion, show_loss = True):
     RETURNS:
         None
     """
+    # Set the model to evaluation mode
     model.eval()
     correct = 0
     total = 0
     test_loss = 0.0
 
+    # Disable gradient computation (not needed for evaluation)
     with torch.no_grad():
+        # Loop over for each batch of the test set
         for data, labels in test_loader:
+            # Forward pass (compute the predictions)
             outputs = model(data)
+            # Compute the loss
             loss = criterion(outputs, labels)
+            # Update the total loss
             test_loss += loss.item()
 
+            # Predict the class with the highest probability
             _, predicted = torch.max(outputs, 1)
+            # Compute the number of correct predictions
             correct += (predicted == labels).sum().item()
+            # Update the total number of data
             total += labels.size(0)
 
+    # Compute the average loss and accuracy
     avg_loss = test_loss / len(test_loader)
-
     accuracy = 100 * correct / total
 
     if show_loss:
@@ -190,15 +199,23 @@ if __name__ == '__main__':
     criterion = nn.CrossEntropyLoss()
 
     # Test get_data_loader()
+    print("Test get_data_loader()")
     train_loader = get_data_loader()
     print(type(train_loader))
     print(train_loader.dataset)
     test_loader = get_data_loader(False)
 
     # Test build_model()
+    print("Test build_model()")
     model = build_model()
     print(model)
 
     # Test train_model()
+    print("Test train_model()")
     train_loader = get_data_loader(training=True)
     train_model(model, train_loader, criterion, 5)
+
+    # Test evaluate_model()
+    print("Test evaluate_model()")
+    test_loader = get_data_loader(training=False)
+    evaluate_model(model, test_loader, criterion, show_loss=True)
